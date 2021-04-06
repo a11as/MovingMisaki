@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>misaki</title>
+    <script src="jquery-3.6.0.slim.min.js" crossorigin="anonymous"></script>
+  </head>
+  <body style="overflow-x: hidden;">
+    <div >
+      <img id="misaki1" src="img/1.png" title="1" style="float: right; position: relative; margin-right: -300px;">
+      <img id="misaki2" src="img/2.png" title="2" style="float: right; position: relative; margin-right: -300px;" hidden>
+    </div>
+  </body>
+  <script>
+    const ipcRenderer = window.requires.ipcRenderer;
+    let m1 = $("#misaki1");
+    let m2 = $("#misaki2");
+    let x=0;    //ｘ座標
+    let quitline = window.parent.screen.width+500
+    console.log(window.parent.screen.width);
+    setInterval(function(){
+      m1.toggle();
+      m2.toggle();
+      if (x > quitline){
+        ipcRenderer.send("quit", { message: "kill" });
+      }
+    }, 500);
+
+    setInterval(function(){
+        x+=3;
+        document.getElementById("misaki1").style.right = x + "px";
+        document.getElementById("misaki2").style.right = x + "px";
+    }, 1);
+  </script>
+</html>
